@@ -29,6 +29,7 @@ git clone https://github.com/Ma1heusSantos/TesteVoch.git
 
 ```bash
     composer install
+    npm install
 ```
 
 ### 2. clonar o arquivo .env-example:
