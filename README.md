@@ -53,8 +53,9 @@ clone o arquivo .env-example e altere o nome para .env
 
 ### 5.inicie o servidor laravel:
 
-    Rode na pasta do projeto o comando
+    Rode na pasta do projeto os seguintes comandos
 
+    php artisan key:generate
     php artisan serve
 
 ### 6.inicie o npm:
