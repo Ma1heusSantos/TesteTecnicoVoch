@@ -28,11 +28,11 @@
                                     {{ $group->nome ?? 'não informado' }}
                                     <div>
                                         <a href="{{ route('economicGroup.edit', $group->id) }}"
-                                            class="bg-yellow-500 mr-2 hover:bg-yellow-600 text-white font-semibold py-1 px-3 rounded-md shadow-sm transition duration-200 text-xs">
+                                            class="bg-yellow-500 mr-4 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200 text-xs">
                                             Editar
                                         </a>
                                         <a href="{{ route('economicGroup.destroy', $group->id) }}"
-                                            class="bg-red-600 hover:bg-red-700 text-white font-semibold py-1 px-3 rounded-md shadow-sm transition duration-200 text-xs">
+                                            class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200 text-xs">
                                             excluir
                                         </a>
 
