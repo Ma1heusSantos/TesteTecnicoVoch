@@ -55,6 +55,28 @@
             reverse: true
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        if ("{{ session('global-success') }}") {
+            Swal.fire({
+                title: 'Sucesso!',
+                text: "{{ session('message') }}",
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+        }
+
+        if ("{{ session('global-error') }}") {
+            Swal.fire({
+                title: 'Erro!',
+                text: "{{ session('message') }}",
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+
+    });
 </script>
 
 </html>

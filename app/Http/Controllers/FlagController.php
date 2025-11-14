@@ -26,7 +26,7 @@ class FlagController extends Controller
     public function create()
     {
         $economicGroup = EconomicGroup::all();
-        return view('flag.create',['economicGroup'=>$economicGroup]);
+        return view('flag.create', ['economicGroup' => $economicGroup]);
     }
 
     /**
@@ -42,8 +42,8 @@ class FlagController extends Controller
      */
     public function show()
     {
-        $flag= Flag::with('economicGroup')->get();
-        return view('flag.show',['flag'=>$flag]);
+        $flag = Flag::with('economicGroup')->get();
+        return view('flag.show', ['flag' => $flag]);
     }
 
     /**
@@ -52,7 +52,7 @@ class FlagController extends Controller
     public function edit(string $id)
     {
         $flag = Flag::with('economicGroup')->where('id', '=', $id)->first();
-        return view('flag.edit',['flag'=>$flag]);
+        return view('flag.edit', ['flag' => $flag]);
     }
 
     /**
@@ -68,22 +68,22 @@ class FlagController extends Controller
      */
     public function destroy(string $id)
     {
-        try{
+        try {
             DB::beginTransaction();
             $flag = Flag::find($id);
-            if (!$flag){
+            if (!$flag) {
                 return redirect()->back()->withErrors('Bandeira não encontrada.')->withInput();
             }
-            
+
             $flag->delete();
             DB::commit();
-            session()->flash('global-success',true);
-            session()->flash('message', 'Bandeira editada com sucesso!');
+            session()->flash('global-success', true);
+            session()->flash('message', 'Bandeira exluida com sucesso!');
             return redirect()->route('flag.show');
-        }catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             Log::info($e->getMessage());
-            session()->flash('global-error',true);
+            session()->flash('global-error', true);
         }
     }
 }
