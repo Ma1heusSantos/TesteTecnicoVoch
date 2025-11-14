@@ -29,14 +29,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/show', [EconomicGroupController::class, 'show'])->name('economicGroup.show');
         Route::get('/create', [EconomicGroupController::class, 'create'])->name('economicGroup.create');
         Route::get('/edit/{id}', [EconomicGroupController::class, 'edit'])->name('economicGroup.edit');
-        Route::get('/destroy/{id}', [EconomicGroupController::class, 'destroy'])->name('economicGroup.destroy');    
+        Route::get('/destroy/{id}', [EconomicGroupController::class, 'destroy'])->name('economicGroup.destroy');
     });
 
     Route::prefix('flag')->group(function () {
         Route::get('/show', [FlagController::class, 'show'])->name('flag.show');
         Route::get('/create', [FlagController::class, 'create'])->name('flag.create');
         Route::get('/edit/{id}', [FlagController::class, 'edit'])->name('flag.edit');
-        Route::get('/destroy/{id}', [FlagController::class, 'destroy'])->name('flag.destroy');    
+        Route::get('/destroy/{id}', [FlagController::class, 'destroy'])->name('flag.destroy');
     });
 
     Route::prefix('unit')->group(function () {
@@ -45,7 +45,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [UnitController::class, 'edit'])->name('unit.edit');
         Route::get('/destroy/{id}', [UnitController::class, 'destroy'])->name('unit.destroy');
         Route::get('/collaboratorForUnit', [UnitController::class, 'collaboratorForUnit']);
-     
     });
 
     Route::prefix('collaborator')->group(function () {
@@ -56,8 +55,12 @@ Route::middleware('auth')->group(function () {
         Route::get('download-relatorio', function () {
             return Excel::download(new CollaboratorExport, 'relatorio-Collaboradores.xlsx');
         })->name('download');
-            
     });
 });
 
-require __DIR__.'/auth.php';
+Route::middleware(['auth'])->group(function () {
+    Route::get('/audits', [\App\Http\Controllers\AuditController::class, 'index'])->name('audits');
+});
+
+
+require __DIR__ . '/auth.php';
