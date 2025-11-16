@@ -9,14 +9,11 @@ use App\Http\Controllers\UnitController;
 use App\Models\Collaborator;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Middleware\AdminAccess;
 
 Route::get('/', function () {
     return view('auth.login');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -58,9 +55,10 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/audits', [\App\Http\Controllers\AuditController::class, 'index'])->name('audits');
-});
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard')->middleware(AdminAccess::class);
+Route::get('/audits', [\App\Http\Controllers\AuditController::class, 'index'])->name('audits')->middleware(AdminAccess::class);
 
 
 require __DIR__ . '/auth.php';

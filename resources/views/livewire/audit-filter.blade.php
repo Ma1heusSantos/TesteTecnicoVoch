@@ -68,10 +68,22 @@
                             </td>
 
                             <td class="px-4 py-3 text-sm">
-                                <span
-                                    class="px-2 py-1 text-xs rounded bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300">
-                                    {{ $audit->event }}
-                                </span>
+                                @if ($audit->event == 'created')
+                                    <span
+                                        class="px-2 py-1 text-xs rounded bg-green-100 text-white dark:bg-green-900 dark:text-white">
+                                        {{ $audit->event }}
+                                    </span>
+                                @elseif ($audit->event == 'updated')
+                                    <span
+                                        class="px-2 py-1 text-xs rounded bg-blue-100 text-white dark:bg-blue-900 dark:text-white">
+                                        {{ $audit->event }}
+                                    </span>
+                                @else
+                                    <span
+                                        class="px-2 py-1 text-xs rounded bg-red-100 text-white dark:bg-red-900 dark:text-white">
+                                        {{ $audit->event }}
+                                    </span>
+                                @endif
                             </td>
 
                             <td class="px-4 py-3 text-sm text-gray-800 dark:text-gray-200">
