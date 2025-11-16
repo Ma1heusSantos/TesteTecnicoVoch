@@ -11,6 +11,6 @@ class AuditController extends Controller
         // A tabela padrão do pacote OwenIt\Auditing é "audits"
         $audits = DB::table('audits')->latest()->paginate(20);
 
-        return view('Audits.audit', compact('audits'));
+        return view('Admin.audit', compact('audits'));
     }
 }

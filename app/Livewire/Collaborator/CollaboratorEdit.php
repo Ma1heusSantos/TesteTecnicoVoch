@@ -20,34 +20,35 @@ class CollaboratorEdit extends Component
 
     protected $rules = [
         'nome' => 'nullable|string|max:255',
-        'email' => 'nullable|email|string|max:255|unique:collaborators,email',
-        'cpf' => 'nullable|unique:collaborators,cpf'
+        'email' => 'nullable|email|string|max:255',
+        'cpf' => 'nullable'
     ];
 
     public function submit()
     {
         $this->validate();
-        try{
+        try {
 
             $collaborator = Collaborator::find($this->collaborator->id);
             $campos = [
-             'nome' => !empty($this->nome) ?  $this->nome : $collaborator->nome,
-             'email' => !empty($this->email) ? $this->email : $collaborator->email,
-             'cpf'=> !empty($this->cpf) ? $this->cpf : $collaborator->cpf,
-             'unit_id'=>!empty($this->unit) ? $this->unit : $collaborator->unit_id,
-         ];
+                'nome' => !empty($this->nome) ?  $this->nome : $collaborator->nome,
+                'email' => !empty($this->email) ? $this->email : $collaborator->email,
+                'cpf' => !empty($this->cpf) ? $this->cpf : $collaborator->cpf,
+                'unit_id' => !empty($this->unit) ? $this->unit : $collaborator->unit_id,
+            ];
             $collaborator->update($campos);
-     
-  
-             return redirect()->route('collaborator.show');
-        }catch(Exception $e){
+
+
+            return redirect()->route('collaborator.show');
+        } catch (Exception $e) {
             Log::info($e->getMessage());
-            session()->flash('global-error',true);
+            session()->flash('global-error', true);
         }
     }
 
- 
-    public function mount($collaborator){
+
+    public function mount($collaborator)
+    {
         $this->nome = $collaborator->nome;
         $this->email = $collaborator->email;
         $this->cpf = $collaborator->cpf;

@@ -5,6 +5,7 @@ use App\Http\Controllers\CollaboratorController;
 use App\Http\Controllers\EconomicGroupController;
 use App\Http\Controllers\FlagController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UnitController;
 use App\Models\Collaborator;
 use Illuminate\Support\Facades\Route;
@@ -55,10 +56,10 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware(AdminAccess::class);
-Route::get('/audits', [\App\Http\Controllers\AuditController::class, 'index'])->name('audits')->middleware(AdminAccess::class);
+Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard')->middleware(AdminAccess::class);
+Route::get('/audits', [AdminController::class, 'Audits'])->name('audits')->middleware(AdminAccess::class);
+Route::get('/createUser', [AdminController::class, 'createUser'])->name('create.user')->middleware(AdminAccess::class);
+Route::post('/createUser', [AdminController::class, 'store'])->name('admin.users.store')->middleware(AdminAccess::class);
 
 
 require __DIR__ . '/auth.php';

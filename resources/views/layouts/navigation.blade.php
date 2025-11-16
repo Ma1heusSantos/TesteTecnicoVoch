@@ -84,6 +84,11 @@
 
                     <!-- Dropdown Menu -->
                     <x-slot name="content">
+
+                        <x-dropdown-link :href="route('create.user')">
+                            {{ __('Criar Usuário') }}
+                        </x-dropdown-link>
+
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
