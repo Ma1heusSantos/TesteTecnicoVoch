@@ -64,11 +64,16 @@ clone o arquivo .env-example e altere o nome para .env
 
     npm run dev
 
-### 7. usuario e senha:
+### 7. usuario admin e senha:
 
 usuario: admin@admin
 senha: admin
 
-### 8. rodando teste unitarios :
+### 7. usuario comun e senha:
+
+usuario: iago@voch
+senha: iago123
+
+### 9. rodando teste unitarios :
 
     php artisan test
