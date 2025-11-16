@@ -66,14 +66,35 @@
         </div>
 
 
-        <!-- Avatar -->
         <div class="mt-4">
             <x-input-label for="avatar" :value="__('Atualizar Foto de Perfil')" />
 
-            <input id="avatar" type="file" name="avatar" class="block mt-1 w-full text-sm text-gray-600" />
+            <div class="flex items-center gap-4 mt-2">
+
+                <label for="avatar"
+                    class="cursor-pointer inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent 
+                   rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 
+                   active:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-300 dark:focus:ring-indigo-800 
+                   transition ease-in-out duration-150">
+                    Selecionar Foto
+                </label>
+
+
+                <span id="avatarName" class="text-sm text-gray-500 dark:text-gray-400"></span>
+
+            </div>
+
+            <input id="avatar" name="avatar" type="file" class="hidden" />
 
             <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
         </div>
+
+        <script>
+            document.getElementById('avatar').addEventListener('change', function() {
+                document.getElementById('avatarName').textContent = this.files[0]?.name ?? '';
+            });
+        </script>
+
 
 
         <div class="flex items-center gap-4">

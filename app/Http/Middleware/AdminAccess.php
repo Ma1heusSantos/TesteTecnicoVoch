@@ -16,7 +16,6 @@ class AdminAccess
         }
 
         if (Auth::user()->role !== 'admin') {
-            //return abort(403, 'Acesso negado. Somente administradores podem acessar esta área.');
             return redirect()->route('economicGroup.show');
         }
 
