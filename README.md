@@ -13,6 +13,8 @@ Antes de começar, verifique se você tem os seguintes requisitos:
 -   [Git](https://git-scm.com/)
 -   [Composer](https://getcomposer.org/)
 -   [Laravel](https://laravel.com/docs/11.x)
+-   [NPM](https://www.npmjs.com/) Versão 20 superior
+-   [PHP](https://www.php.net/) versão 8.2 superior
 
 ## Instalação e Configuração:
 
