@@ -37,6 +37,10 @@ git clone https://github.com/Ma1heusSantos/TesteVoch.git
 ### 2. clonar o arquivo .env-example:
 
 clone o arquivo .env-example e altere o nome para .env
+#### 2.1 alternar o tipo da fila
+    ´´´
+    QUEUE_CONNECTION=database
+    ´´´
 
 ### 3. configure o arquivo apartir das configurações a seguir:
 
