@@ -42,7 +42,7 @@ class CollaboratorController extends Controller
     public function show()
     {
         $collaborators = Collaborator::with('unit')->get();
-        return view('collaborator.show',['collaborators'=>$collaborators]);
+        return view('collaborator.show', ['collaborators' => $collaborators]);
     }
 
     /**
@@ -51,7 +51,7 @@ class CollaboratorController extends Controller
     public function edit(string $id)
     {
         $collaborator = Collaborator::with('unit')->where('id', '=', $id)->first();
-        return view('collaborator.edit',['collaborator'=>$collaborator]);
+        return view('collaborator.edit', ['collaborator' => $collaborator]);
     }
 
     /**
@@ -67,30 +67,45 @@ class CollaboratorController extends Controller
      */
     public function destroy(string $id)
     {
-        try{
+        try {
             DB::beginTransaction();
             $collaborator = Collaborator::find($id);
-            if (!$collaborator){
+            if (!$collaborator) {
                 return redirect()->back()->withErrors('Colaborador não encontrada.')->withInput();
             }
-            
+
             $collaborator->delete();
-            session()->flash('global-success',true);
+            session()->flash('global-success', true);
             session()->flash('message', 'Colaborador Excluido com sucesso!');
-            
+
             DB::commit();
             return redirect()->route('collaborator.show');
-        }catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             Log::info($e->getMessage());
-            session()->flash('global-error',true);
+            session()->flash('global-error', true);
         }
     }
 
     public function export()
     {
-        ExportCollaboratorJob::dispatch(Auth::user()->id);
-        return response()->json(['message' => 'Exportação iniciada!'], 200);
+        $export = \App\Models\Export::create([
+            'user_id' => Auth::id(),
+            'status' => 'pending',
+        ]);
+
+        ExportCollaboratorJob::dispatch($export->id);
+
+        return redirect()->route('exports.list')
+            ->with('success', 'Exportação iniciada! O arquivo estará disponível em instantes.');
     }
- 
+
+    public function listExports()
+    {
+        $exports = \App\Models\Export::where('user_id', Auth::id())
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('exports.index', compact('exports'));
+    }
 }

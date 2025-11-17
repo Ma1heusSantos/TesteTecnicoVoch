@@ -9,27 +9,36 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class ExportCollaboratorJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $userId;
+    protected $exportId;
 
-    /**
-     * Create a new job instance.
-     */
-    public function __construct()
+    public function __construct($exportId)
     {
-        //
+        $this->exportId = $exportId;
     }
 
-    /**
-     * Execute the job.
-     */
     public function handle()
     {
+        $export = \App\Models\Export::find($this->exportId);
+
+        if (!$export) {
+            return;
+        }
+
         $fileName = 'collaborators_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
-        Excel::store(new CollaboratorExport, 'exports/' . $fileName);
+        $path = 'exports/' . $fileName;
+
+        Excel::store(new CollaboratorExport, $path, 'public');
+        Log::info('chegou no job');
+
+        $export->update([
+            'file_path' => $path,
+            'status' => 'completed'
+        ]);
     }
 }

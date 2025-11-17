@@ -5,7 +5,7 @@
                 {{ __('Dashboard') }}
             </h2>
             <div class="flex">
-                <a href="{{ route('download') }}"
+                <a href="{{ route('collaborators.export') }}"
                     class="bg-green-600 mx-2 w-96 hover:bg-green-700 active:bg-green-800 text-white font-medium py-3 px-6 rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-300 inline-flex items-center justify-center text-center">
                     Baixar Relatório de colaboradores
                 </a>
